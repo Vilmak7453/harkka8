@@ -1,5 +1,5 @@
 "use strict";
-var User = require('../models/User');
+var User = require('../models/user');
 
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
@@ -7,8 +7,8 @@ const { sanitizeBody } = require('express-validator/filter');
 exports.register_user =  [
 
     // Validate fields.
-    body('name').trim().isLength({ min: 1}).withMessage('Username is required. 1-20 characters.'),
-    body('password1').trim().isLength({ min: 1, max: 20 }).withMessage('Password is required. 1-20 characters.'),
+    body('name').isLength({ min: 1, max: 20}).trim().withMessage('Username is required. 1-20 characters.'),
+    body('password1').isLength({ min: 1, max: 20 }).trim().withMessage('Password is required. 1-20 characters.'),
     body('password2').custom((value, {req, loc, path})=>{
     	if(value !== req.body.password1)
     		throw new Error("Passwords don't match");

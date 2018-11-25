@@ -1,6 +1,6 @@
 "use strict";
 var mongoose = require('mongoose');
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 var Schema = mongoose.Schema;
 
@@ -13,7 +13,7 @@ var ScoreSchema = new Schema(
 );
 
 ScoreSchema.virtual('date_formatted').get(function() {
-	return moment(this.due_back).format('DD.MM.YY');
+	return moment(this.date).tz("Europe/Helsinki").format('HH:mm DD.MM.YY');
 });
 
 //Export model

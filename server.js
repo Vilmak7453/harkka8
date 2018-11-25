@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/dist'));
 //Set mongoose connection
 var mongoose = require('mongoose');
 //var mongoDB = 'mongodb://mongo:27017/localLibrary';
-var mongoDB = 'mongodb://localhost:27017/localLibrary';
+var mongoDB = 'mongodb://192.168.99.100:27017/localLibrary';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -47,6 +47,12 @@ app.get("/register", function(req, res) {
 app.post("/register", userController.register_user);
 
 app.get("/scoreboard", scoreController.score_list);
+
+app.get("/removeAllScores", function(req, res) {
+	
+	scoreController.remove_all_scores();
+	res.redirect("/scoreboard");
+})
 
 server.listen(PORT, function() {
 
